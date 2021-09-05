@@ -46,7 +46,6 @@ public abstract class Crud<T extends BaseEntity>{
                 }
             }
             return (Class<T>) parametrizedType.getActualTypeArguments()[0];
-
         } catch (Exception e) {
             e.printStackTrace();
             throw new IllegalStateException("Class is not parametrized with generic type!!! Please use extends <> ");

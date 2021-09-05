@@ -1,6 +1,7 @@
 package it.gdgpistoia.webinar.resources;
 
 import it.gdgpistoia.webinar.controller.CustomerController;
+import it.gdgpistoia.webinar.controller.CustomerNotFoundException;
 import it.gdgpistoia.webinar.model.Customer;
 import it.gdgpistoia.webinar.model.Product;
 
@@ -39,7 +40,11 @@ public class CustomerResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addProduct(@PathParam("id") Integer id, Product product) {
-        return Response.ok(customerController.addProduct(id, product)).build();
+        try {
+            return Response.ok(customerController.addProduct(id, product)).build();
+        } catch (CustomerNotFoundException e) {
+            return Response.ok().status(404).build();
+        }
     }
 
 }

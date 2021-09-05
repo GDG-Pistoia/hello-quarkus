@@ -27,8 +27,11 @@ public class CustomerController {
         return customerDao.read(id);
     }
 
-    public Product addProduct(Integer id, Product product) {
+    public Product addProduct(Integer id, Product product) throws CustomerNotFoundException {
         Customer customer = customerDao.read(id);
+        if(customer == null){
+            throw new CustomerNotFoundException();
+        }
         product.setCreated(new Date());
         product.setUpdated(new Date());
         product.setUuid(UUID.randomUUID().toString());
